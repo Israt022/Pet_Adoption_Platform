@@ -1,0 +1,66 @@
+[
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$examplehash$something",
+            "last_login": null,
+            "is_superuser": false,
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "john@example.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2025-04-01T10:00:00Z",
+            "address": "123 Pet Street",
+            "phone_number": "01234567890",
+            "balance": "1000.00",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "pet.pet",
+        "pk": 1,
+        "fields": {
+            "name": "Buddy",
+            "category": "dog",
+            "breed": "Golden Retriever",
+            "age": 3,
+            "description": "Friendly and energetic dog.",
+            "availability": true,
+            "cost": "300.00",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "adoption.adoption",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "pet": 1,
+            "adoption_date": "2025-04-02T12:00:00Z"
+        }
+    },
+    {
+        "model": "adoption.deposite",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "amount": "500.00",
+            "date": "2025-04-01T09:00:00Z"
+        }
+    },
+    {
+        "model": "adoption.review",
+        "pk": 1,
+        "fields": {
+            "pet": 1,
+            "user": 1,
+            "ratings": 5,
+            "comment": "Amazing companion!",
+            "created_at": "2025-04-03T14:30:00Z",
+            "updated_at": "2025-04-03T14:30:00Z"
+        }
+    }
+]
