@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 from pet.validators import validate_file_size
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 class Pet(models.Model):
@@ -31,5 +32,4 @@ class Pet(models.Model):
 class PetImage(models.Model):
     pet = models.ForeignKey(
         Pet, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(
-        upload_to="pet/images/", validators=[validate_file_size])
+    image = CloudinaryField('image')

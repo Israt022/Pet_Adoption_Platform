@@ -3,6 +3,7 @@ from pet.models import Pet,PetImage
 from users.serializers import UserSerializer
 
 class PetImageSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField()
     class Meta:
         model = PetImage
         fields = ['id', 'image']
