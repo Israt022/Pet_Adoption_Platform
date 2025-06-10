@@ -6,6 +6,7 @@ from pet.models import Pet,PetImage
 from django_filters.rest_framework import DjangoFilterBackend
 from api.permissions import IsAdminOrReadOnly
 from drf_yasg.utils import swagger_auto_schema
+from pet.paginations import DefaultPagination
 # Create your views here.
 
 class PetViewSet(ModelViewSet):
@@ -20,6 +21,7 @@ class PetViewSet(ModelViewSet):
     serializer_class = PetSerializers
     
     filter_backends = [DjangoFilterBackend]
+    pagination_class = DefaultPagination
     filterset_fields = ['category']
     
     def get_permissions(self):
