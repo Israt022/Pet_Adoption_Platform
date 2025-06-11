@@ -25,7 +25,7 @@ class PetViewSet(ModelViewSet):
     filterset_fields = ['category']
     
     def get_permissions(self):
-        if self.action in ['list','retrive']:
+        if self.action in ['list','retrieve']:
             return [AllowAny()]
         if self.action == 'create':
             return [IsAuthenticated()]
