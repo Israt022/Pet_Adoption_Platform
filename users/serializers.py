@@ -5,6 +5,7 @@ from adoption.serializers import AdoptionSerializer
 from users.models import User
 
 class UserCreateSerializer(BaseUserCreateSerializer):
+    profile_pic = serializers.ImageField(required=False, allow_null=True)
     class Meta(BaseUserCreateSerializer.Meta):
         fields = ['id','email','password','first_name','last_name','address','phone_number','balance','profile_pic']
     
@@ -14,7 +15,9 @@ class UserSerializer(BaseUserSerializer):
 
     class Meta(BaseUserSerializer.Meta):
         ref_name = 'CustomUser'
-        fields = ['id','email','first_name','last_name','address','phone_number','balance','profile_pic']
+        fields = ['id','email','first_name','last_name','address','phone_number','balance','profile_pic','is_staff']
+        
+        read_only_fields = ['is_staff']
     
 class AdoptionHistorySerializer(serializers.ModelSerializer):
     pet = serializers.SerializerMethodField()
