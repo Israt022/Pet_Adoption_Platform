@@ -10,6 +10,8 @@ class UserCreateSerializer(BaseUserCreateSerializer):
     
 
 class UserSerializer(BaseUserSerializer):
+    profile_pic = serializers.ImageField(required=False, allow_null=True)
+
     class Meta(BaseUserSerializer.Meta):
         ref_name = 'CustomUser'
         fields = ['id','email','first_name','last_name','address','phone_number','balance','profile_pic']
@@ -35,7 +37,7 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['id','email','first_name','last_name','address','phone_number','balance','adoption_history']
+        fields = ['id','email','first_name','last_name','address','phone_number','balance','adoption_history','profile_pic']
         read_only_fields = [
             'id', 'email', 'adoption_history','balance'
         ]
