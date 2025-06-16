@@ -5,13 +5,14 @@ from users.serializers import CustomerProfileSerializer,ChangePasswordSerializer
 from users.models import User
 from rest_framework.response import Response
 from rest_framework import status
-
+from rest_framework.parsers import MultiPartParser, FormParser
 # Create your views here.
 class CustomProfileViewSet(ModelViewSet):
     serializer_class = CustomerProfileSerializer
     permission_classes = [IsAuthenticated]
     http_method_names = ['get', 'put', 'patch', 'delete']
-    
+    parser_classes = [MultiPartParser, FormParser]  # Important
+
     def get_queryset(self):
         return User.objects.filter(id = self.request.user.id)
     

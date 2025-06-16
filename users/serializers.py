@@ -34,10 +34,11 @@ class AdoptionHistorySerializer(serializers.ModelSerializer):
     
 class CustomerProfileSerializer(serializers.ModelSerializer):
     adoption_history = serializers.SerializerMethodField()
+    profile_pic = serializers.ImageField(required=False, allow_null=True)
     
     class Meta:
         model = User
-        fields = ['id','email','first_name','last_name','address','phone_number','balance','adoption_history','profile_pic']
+        fields = ['id','email','first_name','last_name','address','phone_number','balance','profile_pic','adoption_history']
         read_only_fields = [
             'id', 'email', 'adoption_history','balance'
         ]
