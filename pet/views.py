@@ -32,31 +32,31 @@ class PetViewSet(ModelViewSet):
         if self.action in ['update','partial_update','destroy']:
             return [IsAdminUser()]
         return super().get_permissions()
-    @swagger_auto_schema(tags=['Pets'])
+    # @swagger_auto_schema(tags=['Pets'])
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
        
-    @swagger_auto_schema(tags=['Pets'])
+    # @swagger_auto_schema(tags=['Pets'])
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
-    @swagger_auto_schema(tags=['Pets'])
+    # @swagger_auto_schema(tags=['Pets'])
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
 
-    @swagger_auto_schema(tags=['Pets'])
+    # @swagger_auto_schema(tags=['Pets'])
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
-    @swagger_auto_schema(tags=['Pets'])
+    # @swagger_auto_schema(tags=['Pets'])
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
 
-    @swagger_auto_schema(tags=['Pets'])
+    # @swagger_auto_schema(tags=['Pets'])
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
 
-    @swagger_auto_schema(tags=['Pets'])
+    # @swagger_auto_schema(tags=['Pets'])
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)   
        
