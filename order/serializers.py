@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from order.models import Cart, CartItem, Order, OrderItem
 from pet.models import Pet
-from pet.serializers import PetSerializers
+from pet.serializers import PetImageSerializer
 from order.services import OrderService
 
 
@@ -10,9 +10,10 @@ class EmptySerializer(serializers.Serializer):
 
 
 class SimplePetSerializer(serializers.ModelSerializer):
+    images = PetImageSerializer(many=True, read_only=True) 
     class Meta:
         model = Pet
-        fields = ['id', 'name', 'cost']
+        fields = ['id', 'name', 'cost','images']
 
 
 class AddCartItemSerializer(serializers.ModelSerializer):

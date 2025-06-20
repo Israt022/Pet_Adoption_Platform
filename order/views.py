@@ -54,7 +54,7 @@ class CartItemViewSet(ModelViewSet):
         return {'cart_id': self.kwargs.get('cart_pk')}
 
     def get_queryset(self):
-        return CartItem.objects.select_related('pet').filter(cart_id=self.kwargs.get('cart_pk'))
+        return CartItem.objects.select_related('pet').prefetch_related('pet__images').filter(cart_id=self.kwargs.get('cart_pk'))
 
 
 class OrderViewset(ModelViewSet):
