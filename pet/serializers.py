@@ -3,8 +3,8 @@ from pet.models import Pet,PetImage
 from users.serializers import UserSerializer
 
 class PetImageSerializer(serializers.ModelSerializer):
-    # image = serializers.ImageField()
-    image = serializers.CharField(source='image.url')
+    image = serializers.ImageField()
+    # image = serializers.CharField(source='image.url')
     class Meta:
         model = PetImage
         fields = ['id', 'image']
