@@ -7,6 +7,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from api.permissions import IsAdminOrReadOnly
 from drf_yasg.utils import swagger_auto_schema
 from pet.paginations import DefaultPagination
+from rest_framework.views import APIView
+from rest_framework.response import Response
 # Create your views here.
 
 class PetViewSet(ModelViewSet):
@@ -78,3 +80,13 @@ class PetImageViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(pet_id=self.kwargs.get('pet_pk'))
+        
+
+class PetCategoryChoicesView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response([
+            {"value": key, "label": label}
+            for key, label in Pet.CATEGORY_CHOICES
+        ])
