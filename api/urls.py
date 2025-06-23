@@ -3,7 +3,7 @@ from rest_framework_nested import routers
 from pet.views import PetViewSet,PetImageViewSet
 from adoption.views import ReviewViewSet,AdoptionViewSet,DepositeViewSet
 from users.views import CustomProfileViewSet,ChangePasswordViewSet
-from order.views import CartViewSet,CartItemViewSet,OrderViewset,initiate_payment
+from order.views import CartViewSet,CartItemViewSet,OrderViewset,initiate_payment,payment_success,payment_fail,payment_cancel
 
 router = routers.DefaultRouter()
 router.register('pets',PetViewSet,basename='pets')
@@ -33,4 +33,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('payment/initiate/', initiate_payment , name='initiate-payment'),
+    path('payment/success/', payment_success , name='payment-sucess'),
+    path('payment/fail/', payment_fail , name='payment-fail'),
+    path('payment/cancel/', payment_cancel , name='payment-cancel'),
 ]
