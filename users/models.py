@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from users.managers import CustomUserManager
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 class User(AbstractUser):
@@ -11,11 +12,11 @@ class User(AbstractUser):
     balance = models.DecimalField(max_digits=10,decimal_places=2,default=0)
     
     # Profile picture field
-    profile_pic = models.ImageField(
-        upload_to='profile_pics/', 
-        blank=True, 
-        null=True, 
-        default='profile_pics/default.png'
+    profile_pic = CloudinaryField(
+        'image',
+        default='profile_pics/default',  
+        blank=True,
+        null=True
     )
     
     USERNAME_FIELD = 'email' # Use Email Instead of Username 

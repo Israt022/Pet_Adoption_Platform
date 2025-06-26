@@ -11,13 +11,18 @@ class UserCreateSerializer(BaseUserCreateSerializer):
     
 
 class UserSerializer(BaseUserSerializer):
-    profile_pic = serializers.ImageField(required=False, allow_null=True)
+    profile_pic_url = serializers.SerializerMethodField()
 
     class Meta(BaseUserSerializer.Meta):
         ref_name = 'CustomUser'
-        fields = ['id','email','first_name','last_name','address','phone_number','balance','profile_pic','is_staff']
+        fields = ['id','email','first_name','last_name','address','phone_number','balance','profile_pic_url','is_staff']
         
         read_only_fields = ['is_staff']
+    
+    def get_profile_pic_url(self, obj):
+        if obj.profile_pic:
+            return obj.profile_pic.url
+        return None
     
 class AdoptionHistorySerializer(serializers.ModelSerializer):
     pet = serializers.SerializerMethodField()
@@ -48,6 +53,20 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
     def get_adoption_history(self,obj):
         adoptions = obj.adoptions.all()
         return AdoptionHistorySerializer(adoptions,many=True).data
+    def update(self, instance, validated_data):
+        profile_pic = validated_data.pop('profile_pic', None)
+        print("Profile pic in update:", profile_pic, type(profile_pic))
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        if profile_pic is not None:
+            instance.profile_pic = profile_pic
+
+        instance.save()
+        return instance
+
+
     
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)

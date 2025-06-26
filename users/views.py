@@ -18,6 +18,9 @@ class CustomProfileViewSet(ModelViewSet):
     
     def get_object(self):
         return self.request.user
+    def partial_update(self, request, *args, **kwargs):
+        print("partial_update called with data:", request.data)
+        return super().partial_update(request, *args, **kwargs)
     
 class ChangePasswordViewSet(ModelViewSet):
     serializer_class = ChangePasswordSerializer

@@ -98,39 +98,4 @@ class ReviewViewSet(ModelViewSet):
         context['pet_id'] = self.kwargs.get('pet_pk')
         return context
 
-# class ReviewViewSet(ModelViewSet):
-#     serializer_class = ReviewSerializer
-#     permission_classes = [IsReviewAuthorOrReadonly]
-#     def get_queryset(self):
-#         return Review.objects.filter(pet_id=self.kwargs.get('pet_pk'))
 
-#     def get_serializer_context(self):
-#         return {'pet_id': self.kwargs.get('pet_pk'),'request' : self.request}
-
-
-
-
-# class ReviewViewSet(ModelViewSet):
-#     serializer_class = ReviewSerializer
-#     permission_classes = [IsReviewAuthorOrReadonly]
-
-#     def get_queryset(self):
-#         pet_pk = self.kwargs.get('pet_pk')
-#         if pet_pk:
-#             return Review.objects.filter(pet_id=pet_pk)
-#         return Review.objects.all()
-
-#     def get_serializer_context(self):
-#         pet_pk = self.kwargs.get('pet_pk')
-#         context = {'request': self.request}
-#         if pet_pk:
-#             context['pet_id'] = pet_pk
-#         return context
-
-#     def perform_create(self, serializer):
-#         pet_pk = self.kwargs.get('pet_pk')
-#         if pet_pk:
-#             pet = Pet.objects.get(pk=pet_pk)
-#             serializer.save(user=self.request.user, pet=pet)
-#         else:
-#             serializer.save(user=self.request.user)
