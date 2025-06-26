@@ -64,6 +64,11 @@ class ReviewSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('You can only review pet you have adopted.')
         return attrs
     
+    # def create(self, validated_data):
+    #     pet_id = self.context['pet_id']
+    #     return Review.objects.create(pet_id=pet_id,user = self.context['request'].user, **validated_data)
     def create(self, validated_data):
         pet_id = self.context['pet_id']
-        return Review.objects.create(pet_id=pet_id,user = self.context['request'].user, **validated_data)
+        # Remove user from validated_data if present to avoid duplication
+        validated_data.pop('user', None) 
+        return Review.objects.create(pet_id=pet_id, user=self.context['request'].user, **validated_data)

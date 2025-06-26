@@ -12,6 +12,10 @@ router.register('orders', OrderViewset, basename='orders')
 router.register('deposits', DepositeViewSet, basename='deposits')
 router.register('adoptions',AdoptionViewSet,basename='adoptions')
 router.register('profile',CustomProfileViewSet,basename='profile')
+# New Added for all review 
+router.register('reviews', ReviewViewSet, basename='all-reviews')
+
+
 router.register('change-password',ChangePasswordViewSet,basename='change-password')
 pet_router = routers.NestedDefaultRouter(
     router, 'pets', lookup='pet')

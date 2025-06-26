@@ -14,6 +14,8 @@ from sslcommerz_lib import SSLCOMMERZ
 from django.conf import settings as main_settings
 from django.http import HttpResponseRedirect
 from rest_framework.views import APIView
+from adoption.models import Adoption
+
 
 class CartViewSet(CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, GenericViewSet):
     serializer_class = CartSerializer
@@ -154,15 +156,33 @@ def initiate_payment(request):
     return Response({'error' : 'Payment initiation failed!'},status=status.HTTP_400_BAD_REQUEST)
 
 
+# @api_view(['POST'])
+# def payment_success(request):
+#     order_id = request.data.get("tran_id").split('_')[1]
+#     order = Order.objects.get(id=order_id)
+#     order.status = 'Ready To Ship'
+#     order.save()
+#     return HttpResponseRedirect(f"{main_settings.FRONTEND_URL}/dashboard/orders/")
+    
+    # print('Transaction Id : ',request.data.get('tran_id').split('_')[1] )
+
 @api_view(['POST'])
 def payment_success(request):
     order_id = request.data.get("tran_id").split('_')[1]
     order = Order.objects.get(id=order_id)
+    
+    # ✅ Update order status
     order.status = 'Ready To Ship'
     order.save()
-    return HttpResponseRedirect(f"{main_settings.FRONTEND_URL}/dashboard/orders/")
+
+    # ✅ Create adoption entries
+    for item in order.items.all():
+        Adoption.objects.get_or_create(user=order.user, pet=item.pet)
+        print(item.pet.id)
+        print(Adoption.objects.filter(user=order.user, pet=item.pet).exists())
     
-    # print('Transaction Id : ',request.data.get('tran_id').split('_')[1] )
+    # ✅ Redirect to frontend orders page
+    return HttpResponseRedirect(f"{main_settings.FRONTEND_URL}/dashboard/orders/")
 
 @api_view(['POST'])
 def payment_cancel(request):
