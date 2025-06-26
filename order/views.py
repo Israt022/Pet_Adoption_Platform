@@ -171,17 +171,16 @@ def payment_success(request):
     order_id = request.data.get("tran_id").split('_')[1]
     order = Order.objects.get(id=order_id)
     
-    # ✅ Update order status
     order.status = 'Ready To Ship'
     order.save()
 
-    # ✅ Create adoption entries
     for item in order.items.all():
         Adoption.objects.get_or_create(user=order.user, pet=item.pet)
         print(item.pet.id)
         print(Adoption.objects.filter(user=order.user, pet=item.pet).exists())
-    
-    # ✅ Redirect to frontend orders page
+        item.pet.availability = False
+        item.pet.save()
+        
     return HttpResponseRedirect(f"{main_settings.FRONTEND_URL}/dashboard/orders/")
 
 @api_view(['POST'])
