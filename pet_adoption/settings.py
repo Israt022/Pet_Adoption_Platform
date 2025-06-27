@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'pet_adoption.wsgi.app'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    'https://pet-adoption-ui.vercel.app/'
+    'https://pet-adoption-ui.vercel.app'
 ]
 
 INTERNAL_IPS = [
