@@ -112,7 +112,7 @@ EMAIL_HOST=your_email_host
 ---
 
 ## 🧑‍💻 Author
-[Your Name](https://github.com/yourusername)
+[Your Name](https://github.com/Israt022)
 
 ---
 
